@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="SJIS" ?>
+<PROJECT version="1.0" name="FILLING" accessip="192.168.3.3" accessuser="QJ71MES96">
+<COMMENT></COMMENT>
+<SYSTEM>
+	<NETWORK address="192.168.3.3" subnetmask="255.255.255.0" />
+	<ACCOUNTS username="UUo3MU1FUzk2" pwd="TUlUU1VCSVNISQ==" />
+	<TIME>
+		<SNTP enabled="false" />
+	</TIME>
+	<DBBUFTAG size="32">
+		<BUFSTAT />
+		<BUFREQ />
+	</DBBUFTAG>
+</SYSTEM>
+<TAGDEFINITION>
+	<SYSTEMTAG>
+		<TIMERS name="TIMER0" interval="1s"/>
+	</SYSTEMTAG>
+	<CPULIST>
+		<CPUS name="ControlCPU" id="0" cputype="QCPU_QMode" otherstation ="Nonet" />
+	</CPULIST>
+	<DEVICETAGS name="filling" interval="1s" writable="true" blockread="false" id="0">
+		<ELEMENTS name="stop" datatype="Bit" id="0">ControlCPU.M641</ELEMENTS>
+		<ELEMENTS name="laiping" datatype="Bit" id="1">ControlCPU.X3E</ELEMENTS>
+		<ELEMENTS name="content1" datatype="Bit" id="2">ControlCPU.M601</ELEMENTS>
+		<ELEMENTS name="content2" datatype="Bit" id="3">ControlCPU.M602</ELEMENTS>
+		<ELEMENTS name="content3" datatype="Bit" id="4">ControlCPU.M603</ELEMENTS>
+		<ELEMENTS name="speed1" datatype="Bit" id="5">ControlCPU.M611</ELEMENTS>
+		<ELEMENTS name="speed2" datatype="Bit" id="6">ControlCPU.M612</ELEMENTS>
+		<ELEMENTS name="speed3" datatype="Bit" id="7">ControlCPU.M613</ELEMENTS>
+		<ELEMENTS name="start" datatype="Bit" id="8">ControlCPU.M621</ELEMENTS>
+		<ELEMENTS name="number_back" datatype="SingleWord" id="9">ControlCPU.W1</ELEMENTS>
+		<ELEMENTS name="number" datatype="SingleWord" id="10">ControlCPU.W0</ELEMENTS>
+		<ELEMENTS name="finish" datatype="Bit" id="11">ControlCPU.M651</ELEMENTS>
+	</DEVICETAGS>
+</TAGDEFINITION>
+<DBOBJECTDEFINITION>
+	<DBOBJECTS name="sanling" server="192.168.3.1" userid="c2Fu" pwd="MTIzNDU2" database="water" dbtype="SQLServer2000" port="5112">
+	</DBOBJECTS>
+</DBOBJECTDEFINITION>
+<JOBDEFINITION>
+	<JOBS name="select" enable="1" logging="1" trgbuffering="0" debug="0" combination="0" sqlbuffering="disable" cancelnotice="0">
+		<CONDITIONS id="0" type="2" interval="1" />
+		<ACTIONS type="0" db="0" table="water">
+			<FIELDS field="stop" ctype="0" tag="0" elm="0" cval="" />
+			<FIELDS field="start" ctype="0" tag="0" elm="8" cval="" />
+			<FIELDS field="number" ctype="0" tag="0" elm="10" cval="" />
+			<FIELDS field="content1" ctype="0" tag="0" elm="2" cval="" />
+			<FIELDS field="content2" ctype="0" tag="0" elm="3" cval="" />
+			<FIELDS field="content3" ctype="0" tag="0" elm="4" cval="" />
+			<FIELDS field="speed1" ctype="0" tag="0" elm="5" cval="" />
+			<FIELDS field="speed2" ctype="0" tag="0" elm="6" cval="" />
+			<FIELDS field="speed3" ctype="0" tag="0" elm="7" cval="" />
+			<EXCEPTIONS type="0" force="0" quit="0"/>
+			<EXCEPTIONS type="1" force="0" quit="0"/>
+		</ACTIONS>
+	</JOBS>
+	<JOBS name="update" enable="1" logging="1" trgbuffering="1" debug="0" combination="1" sqlbuffering="disable" cancelnotice="0">
+		<CONDITIONS id="0" type="2" interval="2" />
+		<ACTIONS type="1" db="0" table="water">
+			<FIELDS field="number_back" ctype="0" tag="0" elm="9" cval="" />
+			<FIELDS field="finish" ctype="0" tag="0" elm="11" cval="" />
+			<EXCEPTIONS type="0" force="0" quit="0"/>
+			<EXCEPTIONS type="1" force="0" quit="0"/>
+		</ACTIONS>
+	</JOBS>
+</JOBDEFINITION>
+<MC>842c</MC>
+</PROJECT>
